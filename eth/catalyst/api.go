@@ -89,10 +89,12 @@ func (api *ConsensusAPI) ForkchoiceUpdatedV1(heads beacon.ForkchoiceStateV1, pay
 	}
 	// If the finalized block is set, check if it is in our blockchain
 	if heads.FinalizedBlockHash != (common.Hash{}) {
-		if block := api.eth.BlockChain().GetBlockByHash(heads.FinalizedBlockHash); block == nil {
+		block := api.eth.BlockChain().GetBlockByHash(heads.FinalizedBlockHash)
+		if block == nil {
 			// TODO (MariusVanDerWijden) trigger sync
 			return beacon.SYNCING, nil
 		}
+		api.eth.BlockChain().SetFinalized(block)
 	}
 	// SetHead
 	if err := api.setHead(heads.HeadBlockHash); err != nil {
