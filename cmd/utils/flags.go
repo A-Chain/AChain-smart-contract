@@ -978,8 +978,13 @@ func setHTTP(ctx *cli.Context, cfg *node.Config) {
 	if ctx.GlobalIsSet(AuthHostFlag.Name) {
 		cfg.AuthHost = ctx.GlobalString(AuthHostFlag.Name)
 	}
+
 	if ctx.GlobalIsSet(AuthPortFlag.Name) {
 		cfg.AuthPort = ctx.GlobalInt(AuthPortFlag.Name)
+	}
+
+	if ctx.GlobalIsSet(AuthVirtualHostsFlag.Name) {
+		cfg.AuthVirtualHosts = SplitAndTrim(ctx.GlobalString(AuthVirtualHostsFlag.Name))
 	}
 
 	if ctx.GlobalIsSet(HTTPCORSDomainFlag.Name) {
