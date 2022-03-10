@@ -533,6 +533,11 @@ var (
 		Usage: "Listening port for authenticated APIs",
 		Value: node.DefaultConfig.AuthPort,
 	}
+	AuthVirtualHostsFlag = cli.StringFlag{
+		Name:  "authrpc.vhosts",
+		Usage: "Comma separated list of virtual hostnames from which to accept requests (server enforced). Accepts '*' wildcard.",
+		Value: strings.Join(node.DefaultConfig.AuthVirtualHosts, ","),
+	}
 	JWTSecretFlag = cli.StringFlag{
 		Name:  "authrpc.jwtsecret",
 		Usage: "JWT secret (or path to a jwt secret) to use for authenticated RPC endpoints",
